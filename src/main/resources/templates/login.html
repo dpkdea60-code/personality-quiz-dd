@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="/style.css?v=2" th:href="@{/style.css(v=2)}">
+</head>
+<body>
+
+<div class="bg-waves"></div>
+
+<div class="nav">
+  <div class="brand">Quiz.</div>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/login">Login</a>
+    <a href="/signup">Sign up</a>
+  </div>
+</div>
+
+<div class="page">
+  <div class="container" style="width:min(520px, 94vw);">
+    <div class="panel">
+      <h1>Login</h1>
+      <p>Login to save your results and view history.</p>
+
+      <div th:if="${error}" class="error" th:text="${error}"></div>
+
+      <form method="post" action="/login">
+        <div class="field">
+          <span class="label">Email (Gmail)</span>
+          <input class="input" name="email" type="email" required>
+        </div>
+
+        <div class="field">
+          <span class="label">Password</span>
+          <input class="input" type="password" name="password" required>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">Login</button>
+          <a class="btn btn-secondary" href="/signup">Sign up</a>
+        </div>
+      </form>
+
+      <div style="height:10px;"></div>
+
+      <form method="post" action="/guest">
+        <button class="btn btn-secondary" type="submit" style="width:100%;">Continue as Guest</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

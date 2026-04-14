@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Quiz Website</title>
+  <link rel="stylesheet" href="/style.css?v=2" th:href="@{/style.css(v=2)}">
+</head>
+<body>
+
+<div class="bg-waves"></div>
+
+<div class="nav">
+  <div class="brand">Quiz.</div>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <span th:if="${username == null}">
+      <a href="/login">Login</a>
+      <a href="/signup">Sign up</a>
+    </span>
+    <span th:if="${username != null}">
+      <a href="/quiz">Quiz</a>
+      <a href="/history">History</a>
+      <form method="post" action="/logout">
+        <button class="btn btn-secondary" type="submit">Logout</button>
+      </form>
+    </span>
+  </div>
+</div>
+
+<div class="page">
+  <div class="container">
+    <div class="hero">
+      <div class="panel">
+        <div class="title">Quiz Website</div>
+        <p>
+          Answer 25 questions to find your personality type, see pros/cons,
+          and get improvement suggestions.
+        </p>
+
+        <div th:if="${username == null}" class="actions">
+          <a class="btn btn-primary" href="/login">Login</a>
+          <a class="btn btn-secondary" href="/signup">Sign up</a>
+          <form method="post" action="/guest">
+            <button class="btn btn-secondary" type="submit">Continue as Guest</button>
+          </form>
+          <a class="btn btn-primary" href="/login">Start Quiz</a>
+        </div>
+
+        <div th:if="${username != null}" class="actions">
+          <a class="btn btn-primary" href="/quiz">Start Quiz</a>
+          <a class="btn btn-secondary" href="/history">View History</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>What you’ll get</h2>
+        <p>• Personality type</p>
+        <p>• Pros & Cons</p>
+        <p>• Improvements</p>
+        <p class="muted" style="color:rgba(245,243,255,.72); margin-top:8px;">
+          Tip: Use a real account to save your results.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

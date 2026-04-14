@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Sign up</title>
+  <link rel="stylesheet" href="/style.css?v=2" th:href="@{/style.css(v=2)}">
+</head>
+<body>
+
+<div class="bg-waves"></div>
+
+<div class="nav">
+  <div class="brand">Quiz.</div>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/login">Login</a>
+    <a href="/signup">Sign up</a>
+  </div>
+</div>
+
+<div class="page">
+  <div class="container" style="width:min(520px, 94vw);">
+    <div class="panel">
+      <h1>Create Account</h1>
+      <p>Create an account to save your quiz history.</p>
+
+      <div th:if="${error}" class="error" th:text="${error}"></div>
+
+      <form method="post" action="/signup">
+        <div class="field">
+          <span class="label">Full Name</span>
+          <input class="input" name="fullName" required>
+        </div>
+
+        <div class="field">
+          <span class="label">Email</span>
+          <input class="input" type="email" name="email" required>
+        </div>
+
+        <div class="field">
+          <span class="label">Username</span>
+          <input class="input" name="username" required>
+        </div>
+
+        <div class="field">
+          <span class="label">Password</span>
+          <input class="input" type="password" name="password" required>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">Create</button>
+          <a class="btn btn-secondary" href="/login">Back</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

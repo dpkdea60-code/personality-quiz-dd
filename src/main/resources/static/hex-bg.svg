@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <pattern id="hex" width="104" height="90" patternUnits="userSpaceOnUse">
+      <!-- first hex -->
+      <path d="M52 0 L104 26 L104 64 L52 90 L0 64 L0 26 Z"
+            fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+      <!-- offset hex to create honeycomb -->
+      <g transform="translate(52,45)">
+        <path d="M52 0 L104 26 L104 64 L52 90 L0 64 L0 26 Z"
+              fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+      </g>
+    </pattern>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#hex)"/>
+</svg>

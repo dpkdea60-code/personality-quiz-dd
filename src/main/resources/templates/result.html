@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Result</title>
+  <link rel="stylesheet" href="/style.css?v=2" th:href="@{/style.css(v=2)}">
+</head>
+<body>
+
+<div class="bg-waves"></div>
+
+<div class="nav">
+  <div class="brand">Quiz.</div>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/quiz">Quiz</a>
+    <a href="/history">History</a>
+  </div>
+</div>
+
+<div class="page">
+  <div class="container" style="width:min(720px, 94vw);">
+    <div class="panel">
+      <h1>Result</h1>
+      <p th:text="'User: ' + ${username}"></p>
+
+      <h2 th:text="'Personality Type: ' + ${result.type}"></h2>
+
+      <div class="hero" style="grid-template-columns: 1fr; gap:14px;">
+        <div class="panel">
+          <h2>Pros</h2>
+          <ul><li th:each="p : ${result.pros}" th:text="${p}"></li></ul>
+        </div>
+
+        <div class="panel">
+          <h2>Cons</h2>
+          <ul><li th:each="c : ${result.cons}" th:text="${c}"></li></ul>
+        </div>
+
+        <div class="panel">
+          <h2>Improvements</h2>
+          <ul><li th:each="i : ${result.improvements}" th:text="${i}"></li></ul>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="/quiz">Retake</a>
+        <a class="btn btn-secondary" href="/history">History</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

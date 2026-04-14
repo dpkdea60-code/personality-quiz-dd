@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>History</title>
+  <link rel="stylesheet" href="/style.css?v=2" th:href="@{/style.css(v=2)}">
+</head>
+<body>
+
+<div class="bg-waves"></div>
+
+<div class="nav">
+  <div class="brand">Quiz.</div>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/quiz">Quiz</a>
+    <form method="post" action="/logout">
+      <button class="btn btn-secondary" type="submit">Logout</button>
+    </form>
+  </div>
+</div>
+
+<div class="page">
+  <div class="container" style="width:min(720px, 94vw);">
+    <div class="panel">
+      <h1>History</h1>
+      <p th:text="'User: ' + ${username}"></p>
+
+      <div th:if="${#lists.isEmpty(attempts)}">
+        <p>No saved results yet.</p>
+      </div>
+
+      <div th:each="a : ${attempts}" class="panel" style="padding:14px; margin-top:12px;">
+        <div><b th:text="${a.createdAt}"></b></div>
+        <div th:text="'Type: ' + ${a.personalityType}"></div>
+        <div style="color:rgba(245,243,255,0.72); font-size:13px;"
+             th:text="'Scores: EI=' + ${a.eiScore} + ', SN=' + ${a.snScore} + ', TF=' + ${a.tfScore} + ', JP=' + ${a.jpScore}">
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="/quiz">Take Quiz</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

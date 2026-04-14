@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz</title>
+  <link rel="stylesheet" href="/style.css?v=2" th:href="@{/style.css(v=2)}">
+</head>
+<body>
+
+<div class="bg-waves"></div>
+
+<div class="nav">
+  <div class="brand">Quiz.</div>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/history">History</a>
+    <form method="post" action="/logout">
+      <button class="btn btn-secondary" type="submit">Logout</button>
+    </form>
+  </div>
+</div>
+
+<div class="page">
+  <div class="qa-wrap">
+    <div class="qa-card">
+
+      <div class="qa-top">
+        <div class="qa-count">
+          <span id="qaNum">01</span><span class="qa-total" th:text="'/' + ${#lists.size(questions)}">/25</span>
+        </div>
+        <div class="qa-user" th:text="${username}"></div>
+      </div>
+
+      <div th:if="${error}" class="error" th:text="${error}"></div>
+
+      <form method="post" action="/quiz" id="qaForm">
+
+        <div th:each="q, st : ${questions}" class="qa-screen" th:attr="data-index=${st.index}">
+          <div class="qa-question" th:text="${q.text}"></div>
+
+          <div class="qa-options">
+            <div class="qa-opt">
+              <input type="radio" th:id="${'q'+q.id+'_m2'}" th:name="${'q'+q.id}" value="-2">
+              <label th:for="${'q'+q.id+'_m2'}">Strongly Disagree</label>
+            </div>
+            <div class="qa-opt">
+              <input type="radio" th:id="${'q'+q.id+'_m1'}" th:name="${'q'+q.id}" value="-1">
+              <label th:for="${'q'+q.id+'_m1'}">Disagree</label>
+            </div>
+            <div class="qa-opt">
+              <input type="radio" th:id="${'q'+q.id+'_0'}" th:name="${'q'+q.id}" value="0">
+              <label th:for="${'q'+q.id+'_0'}">Neutral</label>
+            </div>
+            <div class="qa-opt">
+              <input type="radio" th:id="${'q'+q.id+'_p1'}" th:name="${'q'+q.id}" value="1">
+              <label th:for="${'q'+q.id+'_p1'}">Agree</label>
+            </div>
+            <div class="qa-opt">
+              <input type="radio" th:id="${'q'+q.id+'_p2'}" th:name="${'q'+q.id}" value="2">
+              <label th:for="${'q'+q.id+'_p2'}">Strongly Agree</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-footer">
+          <button type="button" class="qa-btn qa-btn-ghost" id="qaPrev">Back</button>
+          <button type="button" class="qa-btn qa-btn-next" id="qaNext">Next</button>
+          <button type="submit" class="qa-btn qa-btn-next" id="qaSubmit" style="display:none;">Submit</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const screens = Array.from(document.querySelectorAll(".qa-screen"));
+  const numEl = document.getElementById("qaNum");
+  const prevBtn = document.getElementById("qaPrev");
+  const nextBtn = document.getElementById("qaNext");
+  const submitBtn = document.getElementById("qaSubmit");
+  let idx = 0;
+
+  function pad2(n){ return (n < 9 ? "0" : "") + (n + 1); }
+
+  function show(i){
+    idx = i;
+    screens.forEach(s => s.style.display = "none");
+    screens[idx].style.display = "block";
+    numEl.textContent = pad2(idx);
+
+    prevBtn.style.visibility = idx === 0 ? "hidden" : "visible";
+    const last = idx === screens.length - 1;
+    nextBtn.style.display = last ? "none" : "inline-flex";
+    submitBtn.style.display = last ? "inline-flex" : "none";
+  }
+
+  function currentAnswered(){
+    const screen = screens[idx];
+    const anyRadio = screen.querySelector('input[type="radio"]');
+    const name = anyRadio.name;
+    return !!document.querySelector(`input[name="${name}"]:checked`);
+  }
+
+  nextBtn.addEventListener("click", () => {
+    if (!currentAnswered()){
+      alert("Select an option to continue.");
+      return;
+    }
+    show(Math.min(screens.length - 1, idx + 1));
+  });
+
+  prevBtn.addEventListener("click", () => show(Math.max(0, idx - 1)));
+
+  document.getElementById("qaForm").addEventListener("submit", (e) => {
+    for (const s of screens) {
+      const r = s.querySelector('input[type="radio"]');
+      const name = r.name;
+      if (!document.querySelector(`input[name="${name}"]:checked`)) {
+        e.preventDefault();
+        alert("Please answer all questions.");
+        return;
+      }
+    }
+  });
+
+  show(0);
+</script>
+
+</body>
+</html>

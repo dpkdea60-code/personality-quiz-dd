@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>About</title>
+  <link rel="stylesheet" href="/style.css?v=2" th:href="@{/style.css(v=2)}">
+</head>
+<body>
+
+<div class="bg-waves"></div>
+
+<div class="nav">
+  <div class="brand">Quiz.</div>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/login">Login</a>
+    <a href="/signup">Sign up</a>
+  </div>
+</div>
+
+<div class="page">
+  <div class="container">
+    <div class="panel">
+      <h1>About</h1>
+      <p>
+        This project is built using Spring Boot (Java), Thymeleaf, and JPA with H2 database.
+      </p>
+      <p>
+        Users can register/login, answer 25 questions, and get a personality result
+        with pros, cons, and improvements.
+      </p>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="/login">Go to Login</a>
+        <a class="btn btn-secondary" href="/">Back Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
