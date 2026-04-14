@@ -3,8 +3,15 @@ FROM eclipse-temurin:17-jdk-jammy AS build
 
 WORKDIR /app
 
-# Copy everything and build
+# Copy wrapper & pom first, set executable bit for mvnw
+COPY mvnw .
+COPY .mvn .mvn
+RUN chmod +x mvnw
+
+# Copy the rest of the source
 COPY . .
+
+# Build the jar
 RUN ./mvnw clean package -DskipTests
 
 # Run stage: smaller JRE image
@@ -15,8 +22,6 @@ WORKDIR /app
 # Copy the built jar from the build stage
 COPY --from=build /app/target/personality-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose the port Spring Boot will listen on (Render sets PORT env, but 8080 is default)
 EXPOSE 8080
 
-# Run the app
 ENTRYPOINT ["java","-jar","/app/app.jar"]
