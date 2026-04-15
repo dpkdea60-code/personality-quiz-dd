@@ -8,9 +8,6 @@ RUN mvn clean package -DskipTests
 # Run stage
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
-
-# safer: copy whatever jar is built
 COPY --from=build /app/target/*.jar app.jar
-
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+CMD ["sh","-c","java -jar /app/app.jar --server.address=0.0.0.0 --server.port=${PORT:-8080}"]
