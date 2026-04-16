@@ -24,22 +24,47 @@
       <h1>Result</h1>
       <p th:text="'User: ' + ${username}"></p>
 
-      <h2 th:text="'Personality Type: ' + ${result.type}"></h2>
+      <!-- Type + Full form -->
+      <div class="panel" style="margin-top:12px;">
+        <h2 style="margin:0;">
+          Personality Type: <span th:text="${result.type}"></span>
+        </h2>
+        <p style="margin:6px 0 0; opacity:.9; font-style: italic;"
+           th:text="${result.fullForm}">
+        </p>
+      </div>
 
-      <div class="hero" style="grid-template-columns: 1fr; gap:14px;">
+      <div class="hero" style="grid-template-columns: 1fr; gap:14px; margin-top:14px;">
         <div class="panel">
           <h2>Pros</h2>
-          <ul><li th:each="p : ${result.pros}" th:text="${p}"></li></ul>
+          <ul>
+            <li th:each="p : ${result.pros}" th:text="${p}"></li>
+          </ul>
         </div>
 
         <div class="panel">
           <h2>Cons</h2>
-          <ul><li th:each="c : ${result.cons}" th:text="${c}"></li></ul>
+          <ul>
+            <li th:each="c : ${result.cons}" th:text="${c}"></li>
+          </ul>
         </div>
 
         <div class="panel">
           <h2>Improvements</h2>
-          <ul><li th:each="i : ${result.improvements}" th:text="${i}"></li></ul>
+          <ul>
+            <li th:each="i : ${result.improvements}" th:text="${i}"></li>
+          </ul>
+        </div>
+
+        <!-- Optional: show scores -->
+        <div class="panel">
+          <h2>Scores</h2>
+          <ul>
+            <li><b>E/I:</b> <span th:text="${result.ei}"></span></li>
+            <li><b>S/N:</b> <span th:text="${result.sn}"></span></li>
+            <li><b>T/F:</b> <span th:text="${result.tf}"></span></li>
+            <li><b>J/P:</b> <span th:text="${result.jp}"></span></li>
+          </ul>
         </div>
       </div>
 
